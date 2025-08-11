@@ -1,0 +1,127 @@
+{
+    "name": "Website",
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "The website URL to crawl"
+      },
+      "name": {
+        "type": "string",
+        "description": "Friendly name for the website"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "crawling",
+          "completed",
+          "failed"
+        ],
+        "default": "pending",
+        "description": "Current crawl status"
+      },
+      "schedule": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "none",
+              "daily",
+              "weekly",
+              "monthly"
+            ],
+            "default": "none"
+          },
+          "day_of_month": {
+            "type": "number",
+            "description": "Day of the month for monthly schedule (1-28)"
+          },
+          "day_of_week": {
+            "type": "string",
+            "description": "Day of the week for weekly schedule"
+          }
+        },
+        "default": {
+          "type": "none"
+        }
+      },
+      "pages_found": {
+        "type": "number",
+        "default": 0,
+        "description": "Total number of pages discovered"
+      },
+      "pages_crawled": {
+        "type": "number",
+        "default": 0,
+        "description": "Number of pages processed"
+      },
+      "errors_404": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "source_page": {
+              "type": "string"
+            },
+            "link_text": {
+              "type": "string"
+            }
+          }
+        },
+        "default": [],
+        "description": "List of 404 errors found"
+      },
+      "redirects_301": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "from_url": {
+              "type": "string"
+            },
+            "to_url": {
+              "type": "string"
+            },
+            "source_page": {
+              "type": "string"
+            }
+          }
+        },
+        "default": [],
+        "description": "List of 301 redirects found"
+      },
+      "seo_issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "issue_type": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "default": [],
+        "description": "SEO issues like missing meta descriptions or titles"
+      },
+      "last_crawled": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When the crawl was completed"
+      }
+    },
+    "required": [
+      "url",
+      "name"
+    ]
+  }
